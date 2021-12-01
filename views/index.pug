@@ -1,27 +1,21 @@
 extends layout
 
 block content
+  include mixins/restaurantCard
   div.container
-    div.card
-      div.card-header
-        div.backdrop
-        div.card-title Pizza Hut
-        img.card-header-image(src='https://dynl.mktgcdn.com/p/d9AXTJEWMZ156q11dLLVRHsmufNu0K-ng4JYb_4WwRI/1900x1427.jpg')
-      div.card-body
-        div.edit
-          a(href='#') Edit
-        div.card-details
-          div.category Italian
-          div.rating
-            span &#X2b50;
-            span &#X2b50;
-        div.description
-
-            | asafgfdggsdsgdfsgsd
-            | asafgfdggsdsgdfsgsd
-            | asafgfdggsdsgdfsgsd
-            | asafgfdggsdsgdfsgsd
-            | asafgfdggsdsgdfsgsd
-            | asafgfdggsdsgdfsgsd
-            | asafgfdggsdsgdfsgsd
-            | asafgfdggsdsgdfsgsd
+   form(action='/' method='get')
+     div.form-input
+       label(for='category') Category
+       select(id='category' name='category' autocomplete='off')
+          each category in categories
+              option(value=category selected = (category === searchCategory)) #{category}
+       div.form-input
+         label(for='random') Random
+         input(type='checkbox' name='random' id='random' checked=searchRandom)
+     button.button.save(type='submit') Filter
+   div.container
+     div.add-button-row
+         a.button.save(href="/add") Add Restaurant
+   div.container
+       each restaurant in restaurants
+           +restaurantCard(restaurant)
