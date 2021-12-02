@@ -1,13 +1,13 @@
-'use strict';
+var express = require('express');
+var router = express.Router();
+const restaurantController = require('../controllers/restaurantControllers');
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+/* GET home page. */
+router.get('/', restaurantController.viewAll);
+router.get('/edit/:id', restaurantController.renderEditForm);
+router.post('/edit/:id', restaurantController.updateRestaurant);
+router.get('/delete/:id', restaurantController.deleteRestaurant);
+router.get('/add', restaurantController.renderAddForm);
+router.post('/add', restaurantController.addRestaurant);
 
-
-
-module.exports = db;
+module.exports = router;
